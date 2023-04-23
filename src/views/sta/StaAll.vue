@@ -1,15 +1,11 @@
 <template>
-    <div>
-        综合信息统计
-    </div>
+  <div>综合信息统计</div>
 </template>
 
 <script>
-    export default {
-        name: "StaAll"
-    }
+export default {
+  name: "StaAll",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

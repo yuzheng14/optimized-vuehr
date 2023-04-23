@@ -1,15 +1,11 @@
 <template>
-    <div>
-        员工调动
-    </div>
+  <div>员工调动</div>
 </template>
 
 <script>
-    export default {
-        name: "PerMv"
-    }
+export default {
+  name: "PerMv",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

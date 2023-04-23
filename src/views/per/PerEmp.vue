@@ -1,15 +1,11 @@
 <template>
-    <div>
-        员工资料
-    </div>
+  <div>员工资料</div>
 </template>
 
 <script>
-    export default {
-        name: "PerEmp"
-    }
+export default {
+  name: "PerEmp",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

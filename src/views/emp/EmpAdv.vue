@@ -1,15 +1,11 @@
 <template>
-    <div>
-        高级资料
-    </div>
+  <div>高级资料</div>
 </template>
 
 <script>
-    export default {
-        name: "EmpAdv"
-    }
+export default {
+  name: "EmpAdv",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

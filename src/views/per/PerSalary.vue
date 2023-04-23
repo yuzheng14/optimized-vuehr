@@ -1,15 +1,11 @@
 <template>
-    <div>
-        员工调薪
-    </div>
+  <div>员工调薪</div>
 </template>
 
 <script>
-    export default {
-        name: "PerSalary"
-    }
+export default {
+  name: "PerSalary",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -50,5 +50,4 @@ export default {
   border: none;
   outline: none;
 }
-
 </style>

@@ -1,24 +1,29 @@
 <template>
   <div id="card">
-  	<header>
-  		<img class="avatar" v-bind:src="user.userface" v-bind:alt="user.name">
-  		<p class="name">{{user.name}}</p>
-  	</header>
-  	<footer>
-  		<input class="search" type="text" v-model="$store.state.filterKey" placeholder="search user...">
-  	</footer>
+    <header>
+      <img class="avatar" v-bind:src="user.userface" v-bind:alt="user.name" />
+      <p class="name">{{ user.name }}</p>
+    </header>
+    <footer>
+      <input
+        class="search"
+        type="text"
+        v-model="$store.state.filterKey"
+        placeholder="search user..."
+      />
+    </footer>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'card',
-  data () {
+  name: "card",
+  data() {
     return {
-      user: JSON.parse(window.sessionStorage.getItem("user"))
-    }
-  }
-}
+      user: JSON.parse(window.sessionStorage.getItem("user")),
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -39,7 +44,7 @@ export default {
   font-size: 16px;
 }
 #card .search {
-  background: #26292E;
+  background: #26292e;
   height: 30px;
   line-height: 30px;
   padding: 0 10px;
@@ -47,6 +52,6 @@ export default {
   border-radius: 4px;
   outline: none;
   /*鼠标点击后不会出现蓝色边框*/
-  color: #FFF;
+  color: #fff;
 }
 </style>

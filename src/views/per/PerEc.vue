@@ -1,15 +1,11 @@
 <template>
-    <div>
-        PerEc
-    </div>
+  <div>PerEc</div>
 </template>
 
 <script>
-    export default {
-        name: "PerEc"
-    }
+export default {
+  name: "PerEc",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

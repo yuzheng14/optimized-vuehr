@@ -1,15 +1,11 @@
 <template>
-    <div>
-        员工培训
-    </div>
+  <div>员工培训</div>
 </template>
 
 <script>
-    export default {
-        name: "PerTrain"
-    }
+export default {
+  name: "PerTrain",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
