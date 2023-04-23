@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-container>
+  <div id="home-container">
+    <el-container id="el-container">
       <el-header class="homeHeader">
         <div class="title">微人事</div>
         <div>
@@ -25,7 +25,7 @@
       </el-header>
       <el-container>
         <el-aside width="200px">
-          <el-menu router unique-opened>
+          <el-menu router unique-opened style="height: 100%;">
             <el-submenu
               :index="index + ''"
               v-for="(item, index) in routes"
@@ -153,5 +153,11 @@ export default {
 .el-dropdown-link {
   display: flex;
   align-items: center;
+}
+
+#home-container,
+#el-container {
+  width: 100vw;
+  height: 100vh;
 }
 </style>
