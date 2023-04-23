@@ -43,15 +43,9 @@
             {{ r.nameZh }}
           </el-tag>
         </div>
-        <div
-          style="display: flex; justify-content: space-around; margin-top: 10px"
-        >
-          <el-button type="primary" @click="showUpdateHrInfoView"
-            >修改信息</el-button
-          >
-          <el-button type="danger" @click="showUpdatePasswdView"
-            >修改密码</el-button
-          >
+        <div style="display: flex; justify-content: space-around; margin-top: 10px">
+          <el-button type="primary" @click="showUpdateHrInfoView">修改信息</el-button>
+          <el-button type="danger" @click="showUpdatePasswdView">修改密码</el-button>
         </div>
       </div>
     </el-card>
@@ -108,30 +102,16 @@
           class="demo-ruleForm"
         >
           <el-form-item label="请输入旧密码" prop="oldpass">
-            <el-input
-              type="password"
-              v-model="ruleForm.oldpass"
-              autocomplete="off"
-            ></el-input>
+            <el-input type="password" v-model="ruleForm.oldpass" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="请输入新密码" prop="pass">
-            <el-input
-              type="password"
-              v-model="ruleForm.pass"
-              autocomplete="off"
-            ></el-input>
+            <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="新确认密码" prop="checkPass">
-            <el-input
-              type="password"
-              v-model="ruleForm.checkPass"
-              autocomplete="off"
-            ></el-input>
+            <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')"
-              >提交</el-button
-            >
+            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -142,97 +122,97 @@
 
 <script>
 export default {
-  name: "HrInfo",
+  name: 'HrInfo',
   data() {
     var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
+      if (value === '') {
+        callback(new Error('请输入密码'))
       } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
+        if (this.ruleForm.checkPass !== '') {
+          this.$refs.ruleForm.validateField('checkPass')
         }
-        callback();
+        callback()
       }
-    };
+    }
     var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码"));
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
       } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致!"));
+        callback(new Error('两次输入密码不一致!'))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     return {
       ruleForm: {
-        oldpass: "",
-        pass: "",
-        checkPass: "",
+        oldpass: '',
+        pass: '',
+        checkPass: '',
       },
       rules: {
-        oldpass: [{ validator: validatePass, trigger: "blur" }],
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        oldpass: [{ validator: validatePass, trigger: 'blur' }],
+        pass: [{ validator: validatePass, trigger: 'blur' }],
+        checkPass: [{ validator: validatePass2, trigger: 'blur' }],
       },
       hr: null,
       hr2: null,
       dialogVisible: false,
       passwdDialogVisible: false,
-    };
+    }
   },
   mounted() {
-    this.initHr();
+    this.initHr()
   },
   methods: {
     onSuccess() {
-      this.initHr();
+      this.initHr()
     },
     updateHrInfo() {
-      this.putRequest("/hr/info", this.hr2).then((resp) => {
+      this.putRequest('/hr/info', this.hr2).then((resp) => {
         if (resp) {
-          this.dialogVisible = false;
-          this.initHr();
+          this.dialogVisible = false
+          this.initHr()
         }
-      });
+      })
     },
     showUpdateHrInfoView() {
-      this.dialogVisible = true;
+      this.dialogVisible = true
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.ruleForm.hrid = this.hr.id;
-          this.putRequest("/hr/pass", this.ruleForm).then((resp) => {
+          this.ruleForm.hrid = this.hr.id
+          this.putRequest('/hr/pass', this.ruleForm).then((resp) => {
             if (resp) {
-              this.getRequest("/logout");
-              window.sessionStorage.removeItem("user");
-              this.$store.commit("initRoutes", []);
-              this.$router.replace("/");
+              this.getRequest('/logout')
+              window.sessionStorage.removeItem('user')
+              this.$store.commit('initRoutes', [])
+              this.$router.replace('/')
             }
-          });
+          })
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
     },
     showUpdatePasswdView() {
-      this.passwdDialogVisible = true;
+      this.passwdDialogVisible = true
     },
     initHr() {
-      this.getRequest("/hr/info").then((resp) => {
+      this.getRequest('/hr/info').then((resp) => {
         if (resp) {
-          this.hr = resp;
-          this.hr2 = Object.assign({}, this.hr);
-          window.sessionStorage.setItem("user", JSON.stringify(resp));
-          this.$store.commit("INIT_CURRENTHR", resp);
+          this.hr = resp
+          this.hr2 = Object.assign({}, this.hr)
+          window.sessionStorage.setItem('user', JSON.stringify(resp))
+          this.$store.commit('INIT_CURRENTHR', resp)
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

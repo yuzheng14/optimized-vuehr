@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: "EcMana",
-};
+  name: 'EcMana',
+}
 </script>
 
 <style scoped></style>

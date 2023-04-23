@@ -39,23 +39,10 @@
           @keydown.enter.native="submitLogin"
           style="width: 250px"
         ></el-input>
-        <img
-          :src="vcUrl"
-          @click="updateVerifyCode"
-          alt=""
-          style="cursor: pointer"
-        />
+        <img :src="vcUrl" @click="updateVerifyCode" alt="" style="cursor: pointer" />
       </el-form-item>
-      <el-checkbox
-        size="normal"
-        class="loginRemember"
-        v-model="checked"
-      ></el-checkbox>
-      <el-button
-        size="normal"
-        type="primary"
-        style="width: 100%"
-        @click="submitLogin"
+      <el-checkbox size="normal" class="loginRemember" v-model="checked"></el-checkbox>
+      <el-button size="normal" type="primary" style="width: 100%" @click="submitLogin"
         >登录</el-button
       >
     </el-form>
@@ -64,54 +51,50 @@
 
 <script>
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
       loading: false,
-      vcUrl: "/verifyCode?time=" + new Date(),
+      vcUrl: '/verifyCode?time=' + new Date(),
       loginForm: {
-        username: "admin",
-        password: "123",
-        code: "",
+        username: 'admin',
+        password: '123',
+        code: '',
       },
       checked: true,
       rules: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-        ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
-        code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
       },
-    };
+    }
   },
   methods: {
     updateVerifyCode() {
-      this.vcUrl = "/verifyCode?time=" + new Date();
+      this.vcUrl = '/verifyCode?time=' + new Date()
     },
     submitLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.loading = true;
-          this.postRequest("/doLogin", this.loginForm).then((resp) => {
-            this.loading = false;
+          this.loading = true
+          this.postRequest('/doLogin', this.loginForm).then((resp) => {
+            this.loading = false
             if (resp) {
-              this.$store.commit("INIT_CURRENTHR", resp.obj);
-              window.sessionStorage.setItem("user", JSON.stringify(resp.obj));
-              let path = this.$route.query.redirect;
-              this.$router.replace(
-                path == "/" || path == undefined ? "/home" : path
-              );
+              this.$store.commit('INIT_CURRENTHR', resp.obj)
+              window.sessionStorage.setItem('user', JSON.stringify(resp.obj))
+              let path = this.$route.query.redirect
+              this.$router.replace(path == '/' || path == undefined ? '/home' : path)
             } else {
-              this.vcUrl = "/verifyCode?time=" + new Date();
+              this.vcUrl = '/verifyCode?time=' + new Date()
             }
-          });
+          })
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style>

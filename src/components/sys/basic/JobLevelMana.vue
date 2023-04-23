@@ -14,19 +14,9 @@
         size="small"
         style="margin-left: 5px; margin-right: 5px"
       >
-        <el-option
-          v-for="item in titleLevels"
-          :key="item"
-          :label="item"
-          :value="item"
-        >
-        </el-option>
+        <el-option v-for="item in titleLevels" :key="item" :label="item" :value="item"> </el-option>
       </el-select>
-      <el-button
-        icon="el-icon-plus"
-        type="primary"
-        size="small"
-        @click="addJobLevel"
+      <el-button icon="el-icon-plus" type="primary" size="small" @click="addJobLevel"
         >添加</el-button
       >
     </div>
@@ -44,8 +34,7 @@
       >
         <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column prop="id" label="编号" width="55"> </el-table-column>
-        <el-table-column prop="name" label="职称名称" width="150">
-        </el-table-column>
+        <el-table-column prop="name" label="职称名称" width="150"> </el-table-column>
         <el-table-column prop="titleLevel" label="职称级别"> </el-table-column>
         <el-table-column prop="createDate" label="创建时间"> </el-table-column>
         <el-table-column label="是否启用">
@@ -56,15 +45,8 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="small" @click="showEditView(scope.row)"
-              >编辑</el-button
-            >
-            <el-button
-              size="small"
-              type="danger"
-              @click="deleteHandler(scope.row)"
-              >删除</el-button
-            >
+            <el-button size="small" @click="showEditView(scope.row)">编辑</el-button>
+            <el-button size="small" type="danger" @click="deleteHandler(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -99,12 +81,7 @@
                 size="small"
                 style="margin-left: 5px; margin-right: 5px"
               >
-                <el-option
-                  v-for="item in titleLevels"
-                  :key="item"
-                  :label="item"
-                  :value="item"
-                >
+                <el-option v-for="item in titleLevels" :key="item" :label="item" :value="item">
                 </el-option>
               </el-select>
             </td>
@@ -114,11 +91,7 @@
               <el-tag>是否启用</el-tag>
             </td>
             <td>
-              <el-switch
-                v-model="updateJl.enabled"
-                active-text="启用"
-                inactive-text="禁用"
-              >
+              <el-switch v-model="updateJl.enabled" active-text="启用" inactive-text="禁用">
               </el-switch>
             </td>
           </tr>
@@ -126,9 +99,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button size="small" @click="dialogVisible = false">取 消</el-button>
-        <el-button size="small" type="primary" @click="doUpdate"
-          >确 定</el-button
-        >
+        <el-button size="small" type="primary" @click="doUpdate">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -136,126 +107,118 @@
 
 <script>
 export default {
-  name: "JobLevelMana",
+  name: 'JobLevelMana',
   data() {
     return {
       dialogVisible: false,
       loading: false,
       multipleSelection: [],
       updateJl: {
-        name: "",
-        titleLevel: "",
+        name: '',
+        titleLevel: '',
         enabled: false,
       },
       jl: {
-        name: "",
-        titleLevel: "",
+        name: '',
+        titleLevel: '',
       },
       jls: [],
-      titleLevels: ["正高级", "副高级", "中级", "初级", "员级"],
-    };
+      titleLevels: ['正高级', '副高级', '中级', '初级', '员级'],
+    }
   },
   mounted() {
-    this.initJls();
+    this.initJls()
   },
   methods: {
     deleteMany() {
       this.$confirm(
-        "此操作将永久删除【" +
-          this.multipleSelection.length +
-          "】条记录, 是否继续?",
-        "提示",
+        '此操作将永久删除【' + this.multipleSelection.length + '】条记录, 是否继续?',
+        '提示',
         {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
         }
       )
         .then(() => {
-          let ids = "?";
+          let ids = '?'
           this.multipleSelection.forEach((item) => {
-            ids += "ids=" + item.id + "&";
-          });
-          this.deleteRequest("/system/basic/joblevel/" + ids).then((resp) => {
+            ids += 'ids=' + item.id + '&'
+          })
+          this.deleteRequest('/system/basic/joblevel/' + ids).then((resp) => {
             if (resp) {
-              this.initJls();
+              this.initJls()
             }
-          });
+          })
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
+            type: 'info',
+            message: '已取消删除',
+          })
+        })
     },
     doUpdate() {
-      this.putRequest("/system/basic/joblevel/", this.updateJl).then((resp) => {
+      this.putRequest('/system/basic/joblevel/', this.updateJl).then((resp) => {
         if (resp) {
-          this.initJls();
-          this.dialogVisible = false;
+          this.initJls()
+          this.dialogVisible = false
         }
-      });
+      })
     },
     handleSelectionChange(val) {
-      this.multipleSelection = val;
+      this.multipleSelection = val
     },
     showEditView(data) {
-      Object.assign(this.updateJl, data);
-      this.dialogVisible = true;
+      Object.assign(this.updateJl, data)
+      this.dialogVisible = true
     },
     deleteHandler(data) {
-      this.$confirm(
-        "此操作将永久【" + data.name + "】职称, 是否继续?",
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
-        }
-      )
+      this.$confirm('此操作将永久【' + data.name + '】职称, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
         .then(() => {
-          this.deleteRequest("/system/basic/joblevel/" + data.id).then(
-            (resp) => {
-              if (resp) {
-                this.initJls();
-              }
+          this.deleteRequest('/system/basic/joblevel/' + data.id).then((resp) => {
+            if (resp) {
+              this.initJls()
             }
-          );
+          })
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
+            type: 'info',
+            message: '已取消删除',
+          })
+        })
     },
     addJobLevel() {
       if (this.jl.name && this.jl.titleLevel) {
-        this.postRequest("/system/basic/joblevel/", this.jl).then((resp) => {
+        this.postRequest('/system/basic/joblevel/', this.jl).then((resp) => {
           if (resp) {
-            this.initJls();
+            this.initJls()
           }
-        });
+        })
       } else {
-        this.$message.error("添加字段不可以为空!");
+        this.$message.error('添加字段不可以为空!')
       }
     },
     initJls() {
-      this.loading = true;
-      this.getRequest("/system/basic/joblevel/").then((resp) => {
-        this.loading = false;
+      this.loading = true
+      this.getRequest('/system/basic/joblevel/').then((resp) => {
+        this.loading = false
         if (resp) {
-          this.jls = resp;
+          this.jls = resp
           this.jl = {
-            name: "",
-            titleLevel: "",
-          };
+            name: '',
+            titleLevel: '',
+          }
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

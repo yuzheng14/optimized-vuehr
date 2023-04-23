@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: "SysCfg",
-};
+  name: 'SysCfg',
+}
 </script>
 
 <style scoped></style>

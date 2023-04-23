@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: "SysInit",
-};
+  name: 'SysInit',
+}
 </script>
 
 <style scoped></style>

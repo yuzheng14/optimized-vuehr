@@ -17,13 +17,13 @@
 
 <script>
 export default {
-  name: "card",
+  name: 'card',
   data() {
     return {
-      user: JSON.parse(window.sessionStorage.getItem("user")),
-    };
+      user: JSON.parse(window.sessionStorage.getItem('user')),
+    }
   },
-};
+}
 </script>
 
 <style scoped>

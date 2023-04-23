@@ -2,36 +2,11 @@
   <div>
     <div>
       <el-table :data="emps" border stripe size="mini">
-        <el-table-column
-          type="selection"
-          align="left"
-          width="55"
-        ></el-table-column>
-        <el-table-column
-          prop="name"
-          label="姓名"
-          fixed
-          width="120"
-          align="left"
-        ></el-table-column>
-        <el-table-column
-          prop="workID"
-          label="工号"
-          width="120"
-          align="left"
-        ></el-table-column>
-        <el-table-column
-          prop="email"
-          label="电子邮件"
-          width="200"
-          align="left"
-        ></el-table-column>
-        <el-table-column
-          prop="phone"
-          label="电话号码"
-          width="120"
-          align="left"
-        ></el-table-column>
+        <el-table-column type="selection" align="left" width="55"></el-table-column>
+        <el-table-column prop="name" label="姓名" fixed width="120" align="left"></el-table-column>
+        <el-table-column prop="workID" label="工号" width="120" align="left"></el-table-column>
+        <el-table-column prop="email" label="电子邮件" width="200" align="left"></el-table-column>
+        <el-table-column prop="phone" label="电话号码" width="120" align="left"></el-table-column>
         <el-table-column
           prop="department.name"
           label="所属部门"
@@ -105,11 +80,7 @@
               trigger="click"
             >
               <div>
-                <el-select
-                  v-model="currentSalary"
-                  placeholder="请选择"
-                  size="mini"
-                >
+                <el-select v-model="currentSalary" placeholder="请选择" size="mini">
                   <el-option
                     v-for="item in salaries"
                     :key="item.id"
@@ -140,7 +111,7 @@
 
 <script>
 export default {
-  name: "SalSobCfg",
+  name: 'SalSobCfg',
   data() {
     return {
       emps: [],
@@ -149,58 +120,58 @@ export default {
       currentSize: 10,
       currentSalary: null,
       salaries: [],
-    };
+    }
   },
   mounted() {
-    this.initEmps();
-    this.initSalaries();
+    this.initEmps()
+    this.initSalaries()
   },
   methods: {
     sizeChange(size) {
-      this.currentSize = size;
-      this.initEmps();
+      this.currentSize = size
+      this.initEmps()
     },
     currentChange(page) {
-      this.currentPage = page;
-      this.initEmps();
+      this.currentPage = page
+      this.initEmps()
     },
     hidePop(data) {
       if (this.currentSalary) {
-        this.putRequest(
-          "/salary/sobcfg/?eid=" + data.id + "&sid=" + this.currentSalary
-        ).then((resp) => {
-          if (resp) {
-            this.initEmps();
+        this.putRequest('/salary/sobcfg/?eid=' + data.id + '&sid=' + this.currentSalary).then(
+          (resp) => {
+            if (resp) {
+              this.initEmps()
+            }
           }
-        });
+        )
       }
     },
     showPop(data) {
       if (data) {
-        this.currentSalary = data.id;
+        this.currentSalary = data.id
       } else {
-        this.currentSalary = null;
+        this.currentSalary = null
       }
     },
     initSalaries() {
-      this.getRequest("/salary/sobcfg/salaries").then((resp) => {
+      this.getRequest('/salary/sobcfg/salaries').then((resp) => {
         if (resp) {
-          this.salaries = resp;
+          this.salaries = resp
         }
-      });
+      })
     },
     initEmps() {
       this.getRequest(
-        "/salary/sobcfg/?page=" + this.currentPage + "&size=" + this.currentSize
+        '/salary/sobcfg/?page=' + this.currentPage + '&size=' + this.currentSize
       ).then((resp) => {
         if (resp) {
-          this.emps = resp.data;
-          this.total = resp.total;
+          this.emps = resp.data
+          this.total = resp.total
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

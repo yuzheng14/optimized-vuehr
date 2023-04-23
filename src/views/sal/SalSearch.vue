@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: "SalSearch",
-};
+  name: 'SalSearch',
+}
 </script>
 
 <style scoped></style>

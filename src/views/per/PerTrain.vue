@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: "PerTrain",
-};
+  name: 'PerTrain',
+}
 </script>
 
 <style scoped></style>

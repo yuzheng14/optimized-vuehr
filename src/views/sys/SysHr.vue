@@ -8,9 +8,7 @@
         style="width: 400px; margin-right: 10px"
         @keydown.enter.native="doSearch"
       ></el-input>
-      <el-button icon="el-icon-search" type="primary" @click="doSearch"
-        >搜索</el-button
-      >
+      <el-button icon="el-icon-search" type="primary" @click="doSearch">搜索</el-button>
     </div>
     <div class="hr-container">
       <el-card class="hr-card" v-for="(hr, index) in hrs" :key="index">
@@ -25,12 +23,7 @@
         </div>
         <div>
           <div class="img-container">
-            <img
-              :src="hr.userface"
-              :alt="hr.name"
-              :title="hr.name"
-              class="userface-img"
-            />
+            <img :src="hr.userface" :alt="hr.name" :title="hr.name" class="userface-img" />
           </div>
           <div class="userinfo-container">
             <div>用户名：{{ hr.name }}</div>
@@ -66,11 +59,7 @@
                 width="200"
                 trigger="click"
               >
-                <el-select
-                  v-model="selectedRoles"
-                  multiple
-                  placeholder="请选择"
-                >
+                <el-select v-model="selectedRoles" multiple placeholder="请选择">
                   <el-option
                     v-for="(r, indexk) in allroles"
                     :key="indexk"
@@ -79,11 +68,7 @@
                   >
                   </el-option>
                 </el-select>
-                <el-button
-                  slot="reference"
-                  icon="el-icon-more"
-                  type="text"
-                ></el-button>
+                <el-button slot="reference" icon="el-icon-more" type="text"></el-button>
               </el-popover>
             </div>
             <div>备注：{{ hr.remark }}</div>
@@ -96,108 +81,108 @@
 
 <script>
 export default {
-  name: "SysHr",
+  name: 'SysHr',
   data() {
     return {
-      keywords: "",
+      keywords: '',
       hrs: [],
       selectedRoles: [],
       allroles: [],
-    };
+    }
   },
   mounted() {
-    this.initHrs();
+    this.initHrs()
   },
   methods: {
     deleteHr(hr) {
-      this.$confirm("此操作将永久删除【" + hr.name + "】, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm('此操作将永久删除【' + hr.name + '】, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
       })
         .then(() => {
-          this.deleteRequest("/system/hr/" + hr.id).then((resp) => {
+          this.deleteRequest('/system/hr/' + hr.id).then((resp) => {
             if (resp) {
-              this.initHrs();
+              this.initHrs()
             }
-          });
+          })
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
+            type: 'info',
+            message: '已取消删除',
+          })
+        })
     },
     doSearch() {
-      this.initHrs();
+      this.initHrs()
     },
     hidePop(hr) {
-      let roles = [];
-      Object.assign(roles, hr.roles);
-      let flag = false;
+      let roles = []
+      Object.assign(roles, hr.roles)
+      let flag = false
       if (roles.length != this.selectedRoles.length) {
-        flag = true;
+        flag = true
       } else {
         for (let i = 0; i < roles.length; i++) {
-          let role = roles[i];
+          let role = roles[i]
           for (let j = 0; j < this.selectedRoles.length; j++) {
-            let sr = this.selectedRoles[j];
+            let sr = this.selectedRoles[j]
             if (role.id == sr) {
-              roles.splice(i, 1);
-              i--;
-              break;
+              roles.splice(i, 1)
+              i--
+              break
             }
           }
         }
         if (roles.length != 0) {
-          flag = true;
+          flag = true
         }
       }
       if (flag) {
-        let url = "/system/hr/role?hrid=" + hr.id;
+        let url = '/system/hr/role?hrid=' + hr.id
         this.selectedRoles.forEach((sr) => {
-          url += "&rids=" + sr;
-        });
+          url += '&rids=' + sr
+        })
         this.putRequest(url).then((resp) => {
           if (resp) {
-            this.initHrs();
+            this.initHrs()
           }
-        });
+        })
       }
     },
     showPop(hr) {
-      this.initAllRoles();
-      let roles = hr.roles;
-      this.selectedRoles = [];
+      this.initAllRoles()
+      let roles = hr.roles
+      this.selectedRoles = []
       roles.forEach((r) => {
-        this.selectedRoles.push(r.id);
-      });
+        this.selectedRoles.push(r.id)
+      })
     },
     enabledChange(hr) {
-      delete hr.roles;
-      this.putRequest("/system/hr/", hr).then((resp) => {
+      delete hr.roles
+      this.putRequest('/system/hr/', hr).then((resp) => {
         if (resp) {
-          this.initHrs();
+          this.initHrs()
         }
-      });
+      })
     },
     initAllRoles() {
-      this.getRequest("/system/hr/roles").then((resp) => {
+      this.getRequest('/system/hr/roles').then((resp) => {
         if (resp) {
-          this.allroles = resp;
+          this.allroles = resp
         }
-      });
+      })
     },
     initHrs() {
-      this.getRequest("/system/hr/?keywords=" + this.keywords).then((resp) => {
+      this.getRequest('/system/hr/?keywords=' + this.keywords).then((resp) => {
         if (resp) {
-          this.hrs = resp;
+          this.hrs = resp
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style>

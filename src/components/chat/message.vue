@@ -1,18 +1,12 @@
 <template>
   <div id="message" v-scroll-bottom="sessions">
     <ul v-if="currentSession">
-      <li
-        v-for="entry in sessions[user.username + '#' + currentSession.username]"
-      >
+      <li v-for="entry in sessions[user.username + '#' + currentSession.username]">
         <p class="time">
           <span>{{ entry.date | time }}</span>
         </p>
         <div class="main" :class="{ self: entry.self }">
-          <img
-            class="avatar"
-            :src="entry.self ? user.userface : currentSession.userface"
-            alt=""
-          />
+          <img class="avatar" :src="entry.self ? user.userface : currentSession.userface" alt="" />
           <p class="text">{{ entry.content }}</p>
         </div>
       </li>
@@ -21,35 +15,35 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
-  name: "message",
+  name: 'message',
   data() {
     return {
-      user: JSON.parse(window.sessionStorage.getItem("user")),
-    };
+      user: JSON.parse(window.sessionStorage.getItem('user')),
+    }
   },
-  computed: mapState(["sessions", "currentSession"]),
+  computed: mapState(['sessions', 'currentSession']),
   filters: {
     time(date) {
       if (date) {
-        date = new Date(date);
+        date = new Date(date)
       }
-      return `${date.getHours()}:${date.getMinutes()}`;
+      return `${date.getHours()}:${date.getMinutes()}`
     },
   },
   directives: {
     /*这个是vue的自定义指令,官方文档有详细说明*/
     // 发送消息后滚动到底部,这里无法使用原作者的方法，也未找到合理的方法解决，暂用setTimeout的方法模拟
-    "scroll-bottom"(el) {
+    'scroll-bottom'(el) {
       //console.log(el.scrollTop);
       setTimeout(function () {
-        el.scrollTop += 9999;
-      }, 1);
+        el.scrollTop += 9999
+      }, 1)
     },
   },
-};
+}
 </script>
 
 <style scoped>

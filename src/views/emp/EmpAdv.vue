@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: "EmpAdv",
-};
+  name: 'EmpAdv',
+}
 </script>
 
 <style scoped></style>

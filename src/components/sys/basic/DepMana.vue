@@ -21,20 +21,10 @@
       >
         <span>{{ data.name }}</span>
         <span>
-          <el-button
-            type="primary"
-            size="mini"
-            class="depBtn"
-            @click="() => showAddDepView(data)"
-          >
+          <el-button type="primary" size="mini" class="depBtn" @click="() => showAddDepView(data)">
             添加部门
           </el-button>
-          <el-button
-            type="danger"
-            size="mini"
-            class="depBtn"
-            @click="() => deleteDep(data)"
-          >
+          <el-button type="danger" size="mini" class="depBtn" @click="() => deleteDep(data)">
             删除部门
           </el-button>
         </span>
@@ -54,10 +44,7 @@
               <el-tag>部门名称</el-tag>
             </td>
             <td>
-              <el-input
-                v-model="dep.name"
-                placeholder="请输入部门名称..."
-              ></el-input>
+              <el-input v-model="dep.name" placeholder="请输入部门名称..."></el-input>
             </td>
           </tr>
         </table>
@@ -72,125 +59,119 @@
 
 <script>
 export default {
-  name: "DepMana",
+  name: 'DepMana',
   data() {
     return {
       dialogVisible: false,
-      filterText: "",
+      filterText: '',
       dep: {
-        name: "",
+        name: '',
         parentId: -1,
       },
-      pname: "",
+      pname: '',
       deps: [],
       defaultProps: {
-        children: "children",
-        label: "name",
+        children: 'children',
+        label: 'name',
       },
-    };
+    }
   },
   watch: {
     filterText(val) {
-      this.$refs.tree.filter(val);
+      this.$refs.tree.filter(val)
     },
   },
   mounted() {
-    this.initDeps();
+    this.initDeps()
   },
   methods: {
     initDep() {
       this.dep = {
-        name: "",
+        name: '',
         parentId: -1,
-      };
-      this.pname = "";
+      }
+      this.pname = ''
     },
     addDep2Deps(deps, dep) {
       for (let i = 0; i < deps.length; i++) {
-        let d = deps[i];
+        let d = deps[i]
         if (d.id == dep.parentId) {
-          d.children = d.children.concat(dep);
+          d.children = d.children.concat(dep)
           if (d.children.length > 0) {
-            d.parent = true;
+            d.parent = true
           }
-          return;
+          return
         } else {
-          this.addDep2Deps(d.children, dep);
+          this.addDep2Deps(d.children, dep)
         }
       }
     },
     doAddDep() {
-      this.postRequest("/system/basic/department/", this.dep).then((resp) => {
+      this.postRequest('/system/basic/department/', this.dep).then((resp) => {
         if (resp) {
-          this.addDep2Deps(this.deps, resp.obj);
-          this.dialogVisible = false;
+          this.addDep2Deps(this.deps, resp.obj)
+          this.dialogVisible = false
           //初始化变量
-          this.initDep();
+          this.initDep()
         }
-      });
+      })
     },
     removeDepFromDeps(p, deps, id) {
       for (let i = 0; i < deps.length; i++) {
-        let d = deps[i];
+        let d = deps[i]
         if (d.id == id) {
-          deps.splice(i, 1);
+          deps.splice(i, 1)
           if (deps.length == 0) {
-            p.parent = false;
+            p.parent = false
           }
-          return;
+          return
         } else {
-          this.removeDepFromDeps(d, d.children, id);
+          this.removeDepFromDeps(d, d.children, id)
         }
       }
     },
     deleteDep(data) {
       if (data.parent) {
-        this.$message.error("父部门删除失败");
+        this.$message.error('父部门删除失败')
       } else {
-        this.$confirm(
-          "此操作将永久删除【" + data.name + "】部门, 是否继续?",
-          "提示",
-          {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning",
-          }
-        )
+        this.$confirm('此操作将永久删除【' + data.name + '】部门, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        })
           .then(() => {
-            this.deleteRequest("/system/basic/department/" + data.id).then(
-              (resp) => {
-                if (resp) {
-                  this.removeDepFromDeps(null, this.deps, data.id);
-                }
+            this.deleteRequest('/system/basic/department/' + data.id).then((resp) => {
+              if (resp) {
+                this.removeDepFromDeps(null, this.deps, data.id)
               }
-            );
+            })
           })
           .catch(() => {
             this.$message({
-              type: "info",
-              message: "已取消删除",
-            });
-          });
+              type: 'info',
+              message: '已取消删除',
+            })
+          })
       }
     },
     showAddDepView(data) {
-      this.pname = data.name;
-      this.dep.parentId = data.id;
-      this.dialogVisible = true;
+      this.pname = data.name
+      this.dep.parentId = data.id
+      this.dialogVisible = true
     },
     initDeps() {
-      this.getRequest("/system/basic/department/").then((resp) => {
+      this.getRequest('/system/basic/department/').then((resp) => {
         if (resp) {
-          this.deps = resp;
+          this.deps = resp
         }
-      });
+      })
     },
     filterNode(value, data) {
-      if (!value) return true;
-      return data.name.indexOf(value) !== -1;
+      if (!value) return true
+      return data.name.indexOf(value) !== -1
     },
   },
-};
+}
 </script>
 
 <style>

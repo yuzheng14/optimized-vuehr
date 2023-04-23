@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: "SysData",
-};
+  name: 'SysData',
+}
 </script>
 
 <style scoped></style>

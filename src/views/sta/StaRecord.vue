@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: "StaRecord",
-};
+  name: 'StaRecord',
+}
 </script>
 
 <style scoped></style>

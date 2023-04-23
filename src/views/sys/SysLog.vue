@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: "SysLog",
-};
+  name: 'SysLog',
+}
 </script>
 
 <style scoped></style>

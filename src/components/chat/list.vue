@@ -4,9 +4,7 @@
       <li
         v-for="item in hrs"
         :class="{
-          active: currentSession
-            ? item.username === currentSession.username
-            : false,
+          active: currentSession ? item.username === currentSession.username : false,
         }"
         v-on:click="changeCurrentSession(item)"
       >
@@ -21,22 +19,22 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
-  name: "list",
+  name: 'list',
   data() {
     return {
-      user: JSON.parse(window.sessionStorage.getItem("user")),
-    };
+      user: JSON.parse(window.sessionStorage.getItem('user')),
+    }
   },
-  computed: mapState(["hrs", "isDot", "currentSession"]),
+  computed: mapState(['hrs', 'isDot', 'currentSession']),
   methods: {
     changeCurrentSession(currentSession) {
-      this.$store.commit("changeCurrentSession", currentSession);
+      this.$store.commit('changeCurrentSession', currentSession)
     },
   },
-};
+}
 </script>
 
 <style scoped>

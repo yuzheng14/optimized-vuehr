@@ -9,29 +9,29 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
-  name: "uesrtext",
+  name: 'uesrtext',
   data() {
     return {
-      content: "",
-    };
+      content: '',
+    }
   },
-  computed: mapState(["sessions", "currentSession"]),
+  computed: mapState(['sessions', 'currentSession']),
   methods: {
     addMessage(e) {
       if (e.ctrlKey && e.keyCode === 13 && this.content.length) {
-        let msgObj = new Object();
-        msgObj.to = this.currentSession.username;
-        msgObj.content = this.content;
-        this.$store.state.stomp.send("/ws/chat", {}, JSON.stringify(msgObj));
-        this.$store.commit("addMessage", msgObj);
-        this.content = "";
+        let msgObj = new Object()
+        msgObj.to = this.currentSession.username
+        msgObj.content = this.content
+        this.$store.state.stomp.send('/ws/chat', {}, JSON.stringify(msgObj))
+        this.$store.commit('addMessage', msgObj)
+        this.content = ''
       }
     },
   },
-};
+}
 </script>
 
 <style scoped>

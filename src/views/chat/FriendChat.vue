@@ -12,18 +12,18 @@
 </template>
 
 <script>
-import card from "../../components/chat/card.vue";
-import list from "../../components/chat/list.vue";
-import message from "../../components/chat/message.vue";
-import usertext from "../../components/chat/usertext.vue";
+import card from '../../components/chat/card.vue'
+import list from '../../components/chat/list.vue'
+import message from '../../components/chat/message.vue'
+import usertext from '../../components/chat/usertext.vue'
 
 export default {
-  name: "FriendChat",
+  name: 'FriendChat',
   data() {
-    return {};
+    return {}
   },
   mounted: function () {
-    this.$store.dispatch("initData");
+    this.$store.dispatch('initData')
   },
   components: {
     card,
@@ -31,7 +31,7 @@ export default {
     message,
     usertext,
   },
-};
+}
 </script>
 
 <style scoped>
